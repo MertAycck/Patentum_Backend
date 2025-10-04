@@ -1,8 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from .models import Bureau
 
-# Create your views here.
 def register(request):
-    # Handle user registration logic here
-
-    return HttpResponse('Hello  World')
+    bureaus = Bureau.objects.all()
+    return render(request, 'register.html', {'bureaus': bureaus})

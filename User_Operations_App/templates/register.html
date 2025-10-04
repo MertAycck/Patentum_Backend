@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <style>
+        .hidden { display: none; }
+        .form-section { margin-top: 20px; }
+    </style>
+    <script>
+        function showForm(formId) {
+            document.getElementById('userForm').classList.add('hidden');
+            document.getElementById('bureauForm').classList.add('hidden');
+            document.getElementById(formId).classList.remove('hidden');
+        }
+    </script>
+</head>
+<body>
+    <h1>Register</h1>
+    <button onclick="showForm('userForm')">Sign up as user</button>
+    <button onclick="showForm('bureauForm')">Sign up as bureau</button>
+
+    <div id="userForm" class="form-section hidden">
+        <form method="post" action="/register/" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h2>User Registration</h2>
+            <label>Name:</label><input type="text" name="name" required><br>
+            <label>Surname:</label><input type="text" name="surname" required><br>
+            <label>Email:</label><input type="email" name="email" required><br>
+            <label>Password:</label><input type="password" name="password" required><br>
+            <label>Bureau:</label>
+            <select name="bureau" required>
+                {% for bureau in bureaus %}
+                    <option value="{{ bureau.id }}">{{ bureau.name }}</option>
+                {% endfor %}
+            </select><br>
+            <button type="submit">Register as User</button>
+        </form>
+    </div>
+
+    <div id="bureauForm" class="form-section hidden">
+        <form method="post" action="/register/" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h2>Bureau Registration</h2>
+            <label>Name:</label><input type="text" name="name" required><br>
+            <label>Surname:</label><input type="text" name="surname" required><br>
+            <label>Email:</label><input type="email" name="email" required><br>
+            <label>Password:</label><input type="password" name="password" required><br>
+            <label>Bureau Name:</label><input type="text" name="bureau_name" required><br>
+            <label>Bureau Logo:</label><input type="file" name="bureau_logo" accept="image/*"><br>
+            <label>Personal Limit:</label>
+            <select name="personal_limit" required>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+            </select><br>
+            <button type="submit">Register as Bureau</button>
+        </form>
+    </div>
+</body>
+</html>
