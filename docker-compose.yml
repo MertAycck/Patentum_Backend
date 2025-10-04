@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:15
+    container_name: patentumDB_postgre
+    environment:
+      POSTGRES_USER: patentumDB_user
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: patentumDB
+    volumes:  
+      - ./Docker_Volume:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+#TODO gelişitrme süreci bittikten sonra volume'u dockerin kendi içerisinde saklamasına izin ver
