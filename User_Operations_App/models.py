@@ -11,9 +11,9 @@ class Personals(models.Model):
     id	 = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     surname = models.CharField(max_length=100)
-    email = models.EmailField(unique=True, unique=True)
+    email = models.EmailField(unique=True)
     password = models.CharField(max_length=100)
-    bureau = models.ForeignKey('Bureau', null=False, blank=False)
+    bureau = models.ForeignKey('Bureau', null=False, blank=False, on_delete=models.CASCADE) #TODO on_delete sırasında cascade düzelt
     status = models.BooleanField(default=True)  # Active or Inactive
 
 class Bureau(models.Model):
@@ -22,12 +22,12 @@ class Bureau(models.Model):
     #TODO upload_to Logos nasıl açlışır öğren
     logo = models.ImageField(upload_to='logos/', null=True, blank=True)
     personal_limit = models.IntegerField(default=5)
-    representative = models.OneToOneField('Personals')
+    representative = models.OneToOneField('Personals', on_delete=models.CASCADE, related_name="bureau_representative")
     status = models.BooleanField(default=True)  # Active or Inactive
     
 class Customer_of_Bureau(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     logo = models.ImageField(upload_to='customer_logos/', null=True, blank=True)
-    bureau = models.ForeignKey('Bureau', null=False, blank=False)
+    bureau = models.ForeignKey('Bureau', null=False, blank=False, on_delete=models.CASCADE)
     status = models.BooleanField(default=True)  # Active or Inactive
